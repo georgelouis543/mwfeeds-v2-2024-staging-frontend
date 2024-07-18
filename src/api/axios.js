@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'https://mwfeeds-v2-staging.backend.com'
+const BASE_URL = 'https://backend.mwfeedsv2-staging.com/'
 
 export default axios.create({
     baseURL: BASE_URL
