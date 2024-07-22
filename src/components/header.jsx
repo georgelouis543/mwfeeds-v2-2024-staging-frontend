@@ -3,12 +3,31 @@ import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 // import { useRouter } from 'next/router';
 import navLogo from '../assets/navLogo.png'
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 function Header() {
   const [nav, setNav] = useState(false);
   const [shadow, setShadow] = useState(false);
   const [navBg, setNavBg] = useState('#ffffff');
   const [linkColor, setLinkColor] = useState('#1f2937');
+
+  const axiosPrivate = useAxiosPrivate()
+
+  const handleLogout = async () => {
+    try {
+      const response = await axiosPrivate.get('/auth/logout', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log(response.data);
+      
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    window.location.reload();
+  };
   
   const handleNav = () => {
     setNav(!nav);
@@ -63,8 +82,10 @@ function Header() {
               <Link to='/more'>More</Link>
             </li>
             <li className='ml-10 text-sm hover:border-b'>
-              <Link to='/Logout'>Logout</Link>
-            </li>
+                <button type='button' onClick={handleLogout}>
+                  Logout
+                </button>
+              </li>
           </ul>
           {/* Hamburger Icon */}
           <div
@@ -141,11 +162,11 @@ function Header() {
                   More
                 </li>
               </Link>
-              <Link to='/logout'>
-                <li onClick={() => setNav(false)} className='py-4 text-sm'>
+              <>
+                <button type='button' onClick={handleLogout} className='py-4 text-sm'>
                   Logout
-                </li>
-              </Link>
+                </button>
+              </>
             </ul>
             
           </div>
