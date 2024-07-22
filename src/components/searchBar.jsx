@@ -47,7 +47,7 @@ const SearchBar = (props) => {
     
   
     return (
-      <form onSubmit={handleSearchSubmit} className="max-w-lg mx-auto text-[11px]">
+      <form onSubmit={handleSearchSubmit} className="w-[400px] mx-auto text-[11px]">
         <div className="flex items-center">
           <div className="relative">
             <button type="button" onClick={toggleDropdown} className="px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none">
