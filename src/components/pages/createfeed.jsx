@@ -4,6 +4,7 @@ import Articlecontainer from '../articlecontainer'
 import HtmlContainer from '../htmlcontainer'
 import SetitemForm from '../setItemForm'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
+import CreateFeedModal from '../createfeedmodal'
 
 const Createfeed = () => {
 
@@ -15,6 +16,8 @@ const Createfeed = () => {
   const [allformdata, setAllFormData] = useState({})
   const [createfeedformdata, setCreatefeedformData] = useState({})
   const axiosPrivate = useAxiosPrivate()
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onChangeCreateFeedformData = (html_data, items_raw, form_data) => {
     const new_html_data = [
@@ -72,6 +75,22 @@ const Createfeed = () => {
   };
 
 
+  const openModal = () => {
+    setIsModalOpen(true); // Open modal
+  };
+  const closeModal = () => {
+    setIsModalOpen(false); // Close modal
+    setHtmlData([])
+    setHtmlRawData([])
+    setisRssFeed(false)
+    setIsJavaScriptEnabled(false)
+    setItemsArr([])
+    setAllFormData({})
+    setCreatefeedformData({})
+    
+
+  };
+
 
 
   return (
@@ -124,10 +143,17 @@ const Createfeed = () => {
           <button
             type='button'
             className='text-white bg-black hover:bg-gray-700 focus:outline-none focus:ring-black font-medium rounded-lg text-[11px] w-full sm:w-auto px-5 py-2.5 text-center dark:bg-black dark:hover:bg-gray-700 dark:focus:ring-black'
-            onClick={handleCreateFeed}
+            onClick={openModal}
           >
             Create Feed
           </button>
+          
+          <CreateFeedModal 
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          formData={allformdata}
+          />
+        
         </div>
        )} 
         
