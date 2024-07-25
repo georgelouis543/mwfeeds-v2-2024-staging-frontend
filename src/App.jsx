@@ -15,6 +15,8 @@ import Login from './components/authController/Login'
 import Newsfeed from "./components/pages/newsfeed";
 import Newsfeedconvert from "./components/pages/newsfeedconvert";
 import Header from "./components/header"
+import NewsfeedconvertJSON from './components/pages/newsfeedconvertJSON';
+import AllNewsFeeds from './components/pages/allnewsfeeds';
 
 function App() {
 
@@ -51,6 +53,8 @@ function App() {
             <Route path='/editFeed/:feed_id' element={<Editfeed />}></Route>
             <Route path='/newsfeed' element={<Newsfeed />}></Route>
             <Route path='/newsfeed/newsfeedconvert' element={<Newsfeedconvert />}></Route>
+            <Route path='/newsfeed/newsfeedconvertJSON' element={<NewsfeedconvertJSON />}></Route>
+            <Route path='/newsfeed/view-all' element={<AllNewsFeeds />}></Route>
             {/* <Route path='/newsfeed/newsfeedconvertJson' element={<Newsfeed />}></Route> */}
         </Route>
       </Route>

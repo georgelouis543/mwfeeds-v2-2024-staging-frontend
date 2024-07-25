@@ -4,7 +4,7 @@ import NewsfeedItemCard from '../NewsfeedItemCard';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 
-const Newsfeedconvert = () => {
+const NewsfeedconvertJSON = () => {
 
     const [url, setUrl] = useState('');
     const [previewData, setPreviewData] = useState([]);
@@ -41,7 +41,7 @@ const Newsfeedconvert = () => {
         try {
             const response = await axiosPrivate.post('/feed_handler/save_newsfeed', {
                 newsfeed_url: url,
-                convertType: "RSS",
+                convertType: "JSON", 
             });
             console.log('Convert response:', response.data);
         } catch (error) {
@@ -81,4 +81,4 @@ const Newsfeedconvert = () => {
   )
 }
 
-export default Newsfeedconvert
+export default NewsfeedconvertJSON

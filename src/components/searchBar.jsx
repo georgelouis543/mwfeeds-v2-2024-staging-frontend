@@ -25,7 +25,7 @@ const SearchBar = (props) => {
     
         try {
           
-          let apiUrl = '/feed_handler/get_all_feeds?page=1&size=10';
+          let apiUrl = '/feed_handler/get_all_feeds?page=1&size=15';
           let params = {};
     
           if (selectedCategory === 'Feed ID') {
@@ -44,10 +44,17 @@ const SearchBar = (props) => {
           console.error('Error fetching search results:', error);
         }
       };
+
+      const handleClear = () => {
+        setDropdownVisible(false);
+        setSelectedCategory('Feed ID');
+        setSearchQuery('');
+        props.onSubmitSearch({ feed_id: null, created_by: null }); // Reset the search results in the parent component
+    };
     
   
     return (
-      <form onSubmit={handleSearchSubmit} className="w-[400px] mx-auto text-[11px]">
+      <form onSubmit={handleSearchSubmit} className="w-[500px] mx-auto text-[11px]">
         <div className="flex items-center">
           <div className="relative">
             <button type="button" onClick={toggleDropdown} className="px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none">
@@ -79,6 +86,9 @@ const SearchBar = (props) => {
           />
           <button type="submit" className="px-4 py-2 bg-black text-white border border-black rounded-r-lg hover:bg-gray-600 focus:outline-none">
             Search
+          </button>
+          <button type="button" disabled={!searchQuery} onClick={handleClear} className="ml-2 px-4 py-2 text-black border-black border rounded-md	hover:text-gray-600 focus:outline-none">
+            Clear
           </button>
         </div>
       </form>
