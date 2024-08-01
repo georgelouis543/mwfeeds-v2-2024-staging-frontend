@@ -8,6 +8,8 @@ import { FaCopy } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { MdModeEdit } from "react-icons/md";
 import { MdMerge } from "react-icons/md";
+import DeleteModal from '../DeleteModal';
+import DuplicateFeedModal from '../DuplicateFeedModal';
 
 
 const Home = () => {
@@ -22,6 +24,9 @@ const Home = () => {
   const { auth, setAuth } = useAuth(); 
   const [pageCount, setpageCount] = useState(0);
   const [searchparams, setsearchParams] = useState({})
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDuplicateFeedModalOpen, setIsDuplicateFeedModalOpen] = useState(false);
+  const [selectedFeedId, setSelectedFeedId] = useState(null);
 
   let limit = 15;
   const [currentPageNow, setCurrentPageNow] = useState(1);
@@ -164,6 +169,7 @@ const Home = () => {
     
 
   }
+
   
 
 
@@ -189,7 +195,33 @@ const toggleCheckbox = (feedId) => {
     console.log(searchparams)
   }
 
+  const handleDeleteClick = (feedId) => {
+    setSelectedFeedId(feedId);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setSelectedFeedId(null);
+    // Optionally, refresh feeds after deletion
+    fetchFeeds(currentPageNow);
+  };
+
+  const handleDuplicateFeedClick = (feedId) => {
+    setSelectedFeedId(feedId);
+    setIsDuplicateFeedModalOpen(true);
+  };
+
+  const handleCloseDuplicateFeedModal = () => {
+    setIsDuplicateFeedModalOpen(false);
+    setSelectedFeedId(null);
+    // Optionally, refresh feeds after deletion
+    fetchFeeds(currentPageNow);
+  };
+
+
   return (
+    <>
     <div className='flex flex-col justify-between items-top w-full h-full px-2 2xl:px-16 py-3'>
       <div className='flex justify-between items-center'>
         <div className='py-5 px-2 text-xl font-bold'>
@@ -256,8 +288,8 @@ const toggleCheckbox = (feedId) => {
                     <td className="px-6 py-4 text-center">
                       <div className="flex justify-center items-center space-x-2">
                         <Link to={`/editFeed/${feed.feed_id}`}><MdModeEdit /></Link>
-                        <RiDeleteBin6Fill />
-                        <FaCopy />
+                        <RiDeleteBin6Fill onClick={() => handleDeleteClick(feed.feed_id)} />
+                        <FaCopy onClick={() => handleDuplicateFeedClick(feed.feed_id)} />
                       </div>
                     </td>
                 </tr>
@@ -287,11 +319,21 @@ const toggleCheckbox = (feedId) => {
         activeClassName={"bg-black py-1 text-white"}
       />
       </div>
+      <DeleteModal
+        isOpen={isDeleteModalOpen}
+        onCloseDeleteModal={handleCloseDeleteModal}
+        feedId={selectedFeedId}
+      />
+      <DuplicateFeedModal
+      isOpen={isDuplicateFeedModalOpen}
+      onCloseDuplicateFeedModal={handleCloseDuplicateFeedModal}
+      feedId={selectedFeedId} />
           </>
         )
       }
        
     </div>
+    </>
   )
 }
 
