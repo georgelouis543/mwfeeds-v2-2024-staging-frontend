@@ -10,6 +10,7 @@ import { MdModeEdit } from "react-icons/md";
 import { MdMerge } from "react-icons/md";
 import DeleteModal from '../DeleteModal';
 import DuplicateFeedModal from '../DuplicateFeedModal';
+import MergeFeedModal from '../mergefeedModal';
 
 
 const Home = () => {
@@ -27,6 +28,7 @@ const Home = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDuplicateFeedModalOpen, setIsDuplicateFeedModalOpen] = useState(false);
   const [selectedFeedId, setSelectedFeedId] = useState(null);
+  const [isMergeFeedModalOpen, setIsMergeFeedModalOpen] = useState(false);
 
   let limit = 15;
   const [currentPageNow, setCurrentPageNow] = useState(1);
@@ -170,6 +172,20 @@ const Home = () => {
 
   }
 
+  const handleCloseMergeFeedModal = () => {
+    setIsMergeFeedModalOpen(false);
+    setSelectedIds([]);
+    fetchFeeds(currentPageNow);
+  };
+
+  const handleMergeClick = () => {
+    if (selectedIds.length === 0) {
+      console.log('No feeds selected for merging');
+      return;
+    }
+    setIsMergeFeedModalOpen(true);
+  };
+
   
 
 
@@ -231,7 +247,7 @@ const toggleCheckbox = (feedId) => {
           <SearchBar onSubmitSearch = {onSubmitSearchForm}/>
         </div>
         <div className="relative group ml-auto py-2 px-3 text-xl font-bold border-gray-500 border rounded-md">
-            <MdMerge />
+            <MdMerge onClick={handleMergeClick} />
             <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max bg-gray-800 text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 Merge Feeds
             </div>
@@ -327,8 +343,16 @@ const toggleCheckbox = (feedId) => {
       <DuplicateFeedModal
       isOpen={isDuplicateFeedModalOpen}
       onCloseDuplicateFeedModal={handleCloseDuplicateFeedModal}
-      feedId={selectedFeedId} />
-          </>
+      feedId={selectedFeedId} 
+      />
+
+      <MergeFeedModal
+      isOpen={isMergeFeedModalOpen}
+      onCloseMergeFeedModal={handleCloseMergeFeedModal}
+      selectedIds={selectedIds} // Pass selected feed IDs to the modal
+      />
+          
+    </>
         )
       }
        
