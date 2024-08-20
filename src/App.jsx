@@ -17,6 +17,7 @@ import Newsfeedconvert from "./components/pages/newsfeedconvert";
 import Header from "./components/header"
 import NewsfeedconvertJSON from './components/pages/newsfeedconvertJSON';
 import AllNewsFeeds from './components/pages/allnewsfeeds';
+import Mergedfeeds from './components/pages/mergedfeeds';
 
 function App() {
 
@@ -55,6 +56,7 @@ function App() {
             <Route path='/newsfeed/newsfeedconvert' element={<Newsfeedconvert />}></Route>
             <Route path='/newsfeed/newsfeedconvertJSON' element={<NewsfeedconvertJSON />}></Route>
             <Route path='/newsfeed/view-all' element={<AllNewsFeeds />}></Route>
+            <Route path='/view_merged_feeds' element={<Mergedfeeds />}></Route>
             {/* <Route path='/newsfeed/newsfeedconvertJson' element={<Newsfeed />}></Route> */}
         </Route>
       </Route>

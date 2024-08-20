@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import { Link } from "react-router-dom";
 
 const MergeFeedModal = ({ isOpen, onCloseMergeFeedModal, selectedIds }) => {
   const [result, setResult] = useState(null);
@@ -62,6 +63,12 @@ const MergeFeedModal = ({ isOpen, onCloseMergeFeedModal, selectedIds }) => {
             <p>{result}</p>
             {feedLink && <p className='text-[11px] mt-3'>Link: {feedLink}</p>}
             <div className="mt-4 flex justify-end space-x-2">
+            <div className="px-4 py-2 bg-black text-white rounded">
+            <Link to={`/view_merged_feeds`}>
+                View merged feeds
+              </Link>
+            </div>
+            
               <button
                 className="px-4 py-2 bg-black text-white rounded"
                 onClick={onCloseMergeFeedModal}

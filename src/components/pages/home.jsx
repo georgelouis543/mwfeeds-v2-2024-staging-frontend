@@ -5,6 +5,7 @@ import useAuth from '../../hooks/useAuth';
 import SearchBar from '../searchBar';
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { FaCopy } from "react-icons/fa";
+import { FaTableList } from "react-icons/fa6";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { MdModeEdit } from "react-icons/md";
 import { MdMerge } from "react-icons/md";
@@ -246,11 +247,25 @@ const toggleCheckbox = (feedId) => {
         <div className='ml-auto py-5 px-2'>
           <SearchBar onSubmitSearch = {onSubmitSearchForm}/>
         </div>
-        <div className="relative group ml-auto py-2 px-3 text-xl font-bold border-gray-500 border rounded-md">
+        {/* <div className="relative group ml-auto py-2 px-3 text-xl font-bold border-gray-500 border rounded-md">
             <MdMerge onClick={handleMergeClick} />
             <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max bg-gray-800 text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 Merge Feeds
             </div>
+        </div> */}
+        <div className="flex ml-auto space-x-4">
+          <div className="relative group py-2 px-3 text-xl font-bold border-gray-500 border rounded-md">
+            <MdMerge onClick={handleMergeClick} />
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max bg-gray-800 text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              Merge Feeds
+            </div>
+          </div>
+          <div className="relative group py-2 px-3 text-xl font-bold border-gray-500 border rounded-md">
+          <Link to={`/view_merged_feeds`}><FaTableList /></Link>
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max bg-gray-800 text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              View All Merged Feeds
+            </div>
+          </div>
         </div>
       </div>
       
