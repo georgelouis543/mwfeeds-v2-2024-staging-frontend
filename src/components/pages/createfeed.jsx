@@ -125,7 +125,7 @@ const Createfeed = () => {
         <div className='p-3'>
             <h1 className='font-bold text-sm p-1 border bg-[#000000] text-white'>Your Articles will appear below</h1>
             {itemsArr.length > 0 ? (
-              <Articlecontainer items={itemsArr} />
+              <Articlecontainer items={itemsArr} height_px="[400px]"/>
             ) : (
               <div className='flex py-3 w-full overflow-auto h-[300px] items-center'><div className='text-center font-bold text-xl w-full'>Nothing found</div></div>
             )

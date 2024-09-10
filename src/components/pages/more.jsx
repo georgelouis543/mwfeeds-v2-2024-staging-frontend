@@ -13,7 +13,7 @@ const More = () => {
           <img src={NewsfeedConvert} className='w-[30%] rounded-full shadow-xl'/>
         </div>
         <div className='flex w-full justify-center p-7 text-sm text-blue-700 font-bold underline'>
-          <Link to="/newsfeed/newsfeedconvert">Click here</Link>
+          <Link to="/more/more_operations">Click here</Link>
         </div>
     </div>
 

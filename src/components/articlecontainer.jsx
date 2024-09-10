@@ -3,7 +3,7 @@ import Articlecard from './articlecard'
 
 const Articlecontainer = (props) => {
   return (
-    <div className='py-3 w-full overflow-auto h-[400px]'>
+    <div className={`py-3 w-full overflow-auto h-${props.height_px}`}>
       {props.items.map((article, index) => (
         <Articlecard
           key={index} 

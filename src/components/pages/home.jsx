@@ -311,7 +311,7 @@ const toggleCheckbox = (feedId) => {
                   onChange={() => toggleCheckbox(feed.feed_id)}
                 />
                   </td>
-                    <td className="px-6 py-4 text-center">{feed.feed_id}</td>
+                    <td className="px-6 py-4 text-center"><a href={feed.feed_link} target='__blank'>{feed.feed_id}</a></td>
                     <td className="px-6 py-4 text-center"><div className='flex justify-center'><a href={feed.feed_link} target='__blank'>{feed.feed_link}</a></div></td>
                     <td className="px-6 py-4 text-center">{feed.created_by}</td>
                     <td className="px-6 py-4 text-center">{prettifyDate(feed.updated_at)}</td>
