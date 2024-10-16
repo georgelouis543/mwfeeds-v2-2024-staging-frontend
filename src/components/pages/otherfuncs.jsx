@@ -3,14 +3,17 @@ import Otherfuncform from '../otherfuncform'
 import Articlecontainer from '../articlecontainer'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import useAuth from '../../hooks/useAuth'
+import Otherfuncsmodal from '../otherfuncsmodal'
 
 const Otherfuncs = () => {
     const [feedformdata, setfeedformData] = useState({})
     const [items, setItems] = useState([])
     const [dropdownValue, setDropdownValue] = useState('');
     const [saveData, setSaveData] = useState({})
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const axiosPrivate = useAxiosPrivate()
     const { auth, setAuth } = useAuth();
+    const [formData, setFormData] = useState({})
 
 
     const onChangeFeedformData = (form_data, feed_items) => {
@@ -23,29 +26,51 @@ const Otherfuncs = () => {
       const handleDropdownChange = (event) => {
         setDropdownValue(event.target.value);
         console.log('Selected option:', event.target.value);
+        setFormData({
+          ...feedformdata,
+          feature_type: dropdownValue,
+          owner: auth.email,
+        })
+        console.log(formData)
       };
 
-      const handleCreate = async () => {
-        const owner = auth.email; 
-        const allformdata = {
-        ...feedformdata, 
-        feature_type: dropdownValue,    
-        owner
-        };
+      // const handleCreate = async () => {
+      //   const owner = auth.email; 
+      //   const allformdata = {
+      //   ...feedformdata, 
+      //   feature_type: dropdownValue,    
+      //   owner
+      //   };
 
-        setSaveData(allformdata); 
-        console.log('Save Data:', allformdata);
-        try {
-          const response = await axiosPrivate.post('/other_operations/save_feed', allformdata, {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
+      //   setSaveData(allformdata); 
+      //   console.log('Save Data:', allformdata);
+      //   try {
+      //     const response = await axiosPrivate.post('/other_operations/save_feed', allformdata, {
+      //       headers: {
+      //         'Content-Type': 'application/json',
+      //       },
+      //     });
     
-          console.log(response.data);
-        } catch (error) {
-          console.error('Error:', error);
-        }
+      //     console.log(response.data);
+      //   } catch (error) {
+      //     console.error('Error:', error);
+      //   }
+      // };
+
+      
+
+      const handleCreate = () => {
+        setIsModalOpen(true); // Open the modal when "Create" is clicked
+      };
+
+    
+      const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setItems([])
+        setDropdownValue('')
+        setSaveData({})
+        setfeedformData({})
+        setFormData({})
       };
 
   return (
@@ -74,7 +99,7 @@ const Otherfuncs = () => {
           <option value="" disabled>Select an option</option>
           <option value="sharepoint">Sharepoint</option>
           <option value="set-encoding">Set Encoding</option>
-          <option value="suppress-future-date">Suppress Future Dates</option>
+          <option value="suppress-future-dates">Suppress Future Dates</option>
         </select>
 
         <button
@@ -89,6 +114,11 @@ const Otherfuncs = () => {
       </div>
        )} 
         </div>
+        <Otherfuncsmodal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        formData={formData}
+        />
     </div>
   )
 }
