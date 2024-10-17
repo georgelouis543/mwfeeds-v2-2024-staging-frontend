@@ -24,14 +24,15 @@ const Otherfuncs = () => {
       }
 
       const handleDropdownChange = (event) => {
-        setDropdownValue(event.target.value);
-        console.log('Selected option:', event.target.value);
+        const selectedValue = event.target.value; 
+        setDropdownValue(selectedValue); 
         setFormData({
           ...feedformdata,
-          feature_type: dropdownValue,
+          feature_type: selectedValue, 
           owner: auth.email,
-        })
-        console.log(formData)
+        });
+        console.log('Selected option:', selectedValue);
+        console.log('Form data:', formData);
       };
 
       // const handleCreate = async () => {
