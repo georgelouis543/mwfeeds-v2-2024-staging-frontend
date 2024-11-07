@@ -5,6 +5,7 @@ import HtmlContainer from '../htmlcontainer'
 import SetitemForm from '../setItemForm'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import CreateFeedModal from '../createfeedmodal'
+import useAuth from '../../hooks/useAuth'
 
 const Createfeed = () => {
 
@@ -16,6 +17,7 @@ const Createfeed = () => {
   const [allformdata, setAllFormData] = useState({})
   const [createfeedformdata, setCreatefeedformData] = useState({})
   const axiosPrivate = useAxiosPrivate()
+  const { auth, setAuth } = useAuth()
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -52,8 +54,9 @@ const Createfeed = () => {
 
     const new_all_form_data = {
       ...createfeedformdata,
-      ...item_form_data
-    }
+      ...item_form_data,
+      owner: auth.email,
+    };
     delete new_all_form_data.item_list
     setAllFormData(new_all_form_data)
     console.log(allformdata)

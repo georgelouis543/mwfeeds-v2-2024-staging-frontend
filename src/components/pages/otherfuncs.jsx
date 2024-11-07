@@ -107,6 +107,7 @@ const Otherfuncs = () => {
           type="button"
           className="text-white bg-black hover:bg-gray-700 focus:outline-none focus:ring-black font-medium rounded-lg text-[11px] w-full sm:w-auto px-5 py-2.5 text-center dark:bg-black dark:hover:bg-gray-700 dark:focus:ring-black"
           onClick={handleCreate}
+          disabled={!dropdownValue}
         >
           Create
         </button>
