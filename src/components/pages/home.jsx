@@ -239,6 +239,9 @@ const toggleCheckbox = (feedId) => {
 
   return (
     <>
+    {/* <div>
+    <Header></Header>
+    </div> */}
     <div className='flex flex-col justify-between items-top w-full h-full px-2 2xl:px-16 py-3'>
       <div className='flex justify-between items-center'>
         <div className='py-5 px-2 text-xl font-bold'>

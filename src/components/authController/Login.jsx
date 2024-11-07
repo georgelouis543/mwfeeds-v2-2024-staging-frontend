@@ -71,6 +71,7 @@ function Login() {
                       <div className='flex justify-center items-center py-3'>
                       <img src={navLogo} width={200} className='rounded-full border-black'/>
                       </div>
+                      <h1 className='text-white text-center p-3 font-bold text-2xl'>Meltwater Feeds</h1>
                       <h2 className='text-xl text-center font-bold m-10 py-2 text-white border-b'>Sign in with your Meltwater account</h2>
                       <div className='m-10'>
                   <GoogleOAuthProvider clientId={"272404380425-f70rqaqkf4jc52d8r2h9n4vbe1qgkrg5.apps.googleusercontent.com"}>

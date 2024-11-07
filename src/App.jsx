@@ -20,14 +20,19 @@ import AllNewsFeeds from './components/pages/allnewsfeeds';
 import Mergedfeeds from './components/pages/mergedfeeds';
 import Otherfuncs from './components/pages/otherfuncs';
 import Otherfuncfeeds from './components/pages/otherfuncfeeds';
+import useAuth from './hooks/useAuth';
 
 function App() {
 
+  const { auth, setAuth } = useAuth()
+
   return (
     <>
-    <div>
-    <Header></Header>
-    </div>
+    {auth.email && (
+        <div>
+          <Header />
+        </div>
+      )}
       <div className='py-20'>
     <Routes>
 
