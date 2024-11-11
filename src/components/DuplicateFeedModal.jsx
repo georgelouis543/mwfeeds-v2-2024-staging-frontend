@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import useAuth from '../hooks/useAuth';
 
 const DuplicateFeedModal = ({ isOpen, onCloseDuplicateFeedModal, feedId }) => {
     const [result, setResult] = useState(null);
     const [success, setSuccess] = useState(null);
     const [feedLink, setFeedLink] = useState(null)
     const axiosPrivate = useAxiosPrivate();
+    const {auth, setAuth} = useAuth();
 
     useEffect(() => {
         if (isOpen) {
@@ -20,7 +22,7 @@ const DuplicateFeedModal = ({ isOpen, onCloseDuplicateFeedModal, feedId }) => {
   
     const handleDuplicateFeed = async () => {
       try {
-        const response = await axiosPrivate.get(`/feed_handler/duplicate_feed?feed_id=${feedId}`);
+        const response = await axiosPrivate.get(`/feed_handler/duplicate_feed?feed_id=${feedId}&owner=${auth.email}`);
         setResult(response.data.message); // Set result state with response message
         setSuccess(response.data.Success)
         setFeedLink(response.data.feed_link)
