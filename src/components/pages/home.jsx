@@ -6,6 +6,7 @@ import SearchBar from '../searchBar';
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { FaCopy } from "react-icons/fa";
 import { FaTableList } from "react-icons/fa6";
+import { FaAnchor } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { MdModeEdit } from "react-icons/md";
 import { MdMerge } from "react-icons/md";
@@ -286,9 +287,9 @@ const toggleCheckbox = (feedId) => {
                 <th scope="col" className="px-6 py-3 text-center">
                     Feed ID
                 </th>
-                <th scope="col" className="px-6 py-3 text-center">
+                {/* <th scope="col" className="px-6 py-3 text-center">
                     Feed Link
-                </th>
+                </th> */}
                 <th scope="col" className="px-6 py-3 text-center">
                 Created By
                 </th>
@@ -306,7 +307,7 @@ const toggleCheckbox = (feedId) => {
           <tbody>
           
             {feeds.map(feed => (
-                <tr key={feed.feed_id} className="bg-white border-b hover:bg-gray-50 text-xs">
+                <tr key={feed.feed_id} className="bg-white border-b hover:bg-gray-50 text-m">
                   <td className="px-6 py-4 text-center">
                   <input
                   type="checkbox"
@@ -315,7 +316,7 @@ const toggleCheckbox = (feedId) => {
                 />
                   </td>
                     <td className="px-6 py-4 text-center"><a href={feed.feed_link} target='__blank'>{feed.feed_id}</a></td>
-                    <td className="px-6 py-4 text-center"><div className='flex justify-center'><a href={feed.feed_link} target='__blank'>{feed.feed_link}</a></div></td>
+                    {/* <td className="px-6 py-4 text-center"><div className='flex justify-center'><a href={feed.feed_link} target='__blank'>{feed.feed_link}</a></div></td> */}
                     <td className="px-6 py-4 text-center">{feed.created_by}</td>
                     <td className="px-6 py-4 text-center">{prettifyDate(feed.updated_at)}</td>
                     <td className="px-6 py-4 text-center">{prettifyDate(feed.created_at)}</td>
@@ -324,6 +325,7 @@ const toggleCheckbox = (feedId) => {
                         <Link to={`/editFeed/${feed.feed_id}`}><MdModeEdit /></Link>
                         <RiDeleteBin6Fill onClick={() => handleDeleteClick(feed.feed_id)} />
                         <FaCopy onClick={() => handleDuplicateFeedClick(feed.feed_id)} />
+                        <a href={feed.feed_link} target='__blank'><FaAnchor /></a> 
                       </div>
                     </td>
                 </tr>

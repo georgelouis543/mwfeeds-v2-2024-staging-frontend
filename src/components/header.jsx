@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 // import { useRouter } from 'next/router';
 import navLogo from '../assets/navLogo.png'
+import MWFeedsDemoLogo from '../assets/MWFeedsDemoLogo.png'
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 function Header() {
@@ -57,7 +58,7 @@ function Header() {
         <div className='flex items-center'> 
         <Link to='/'>
             <img
-              src={navLogo}
+              src={MWFeedsDemoLogo}
               alt='/'
               width='45'
               height='45'

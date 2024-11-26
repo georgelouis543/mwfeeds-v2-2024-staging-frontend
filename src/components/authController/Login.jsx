@@ -4,7 +4,7 @@ import useAuth from '../../hooks/useAuth';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 // import axios from 'axios';
 import Cookies from 'js-cookie';
-import navLogo from '../../assets/navLogo.png'
+import MWFeedsDemoLogo from '../../assets/MWFeedsDemoLogo.png'
 import axios from '../../api/axios';
 const LOGIN_URL = '/auth';
 
@@ -69,7 +69,7 @@ function Login() {
                   <div className='flex justify-center items-center w-full h-full px-2 2xl:px-16 py-[35px]'>
                     <div className='border-2 border-black rounded-xl bg-black shadow-lg'>
                       <div className='flex justify-center items-center py-3'>
-                      <img src={navLogo} width={200} className='rounded-full border-black'/>
+                      <img src={MWFeedsDemoLogo} width={200} className='rounded-full border-black'/>
                       </div>
                       <h1 className='text-white text-center p-3 font-bold text-2xl'>Meltwater Feeds</h1>
                       <h2 className='text-xl text-center font-bold m-10 py-2 text-white border-b'>Sign in with your Meltwater account</h2>
