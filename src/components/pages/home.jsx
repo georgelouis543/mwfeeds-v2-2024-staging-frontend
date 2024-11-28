@@ -10,6 +10,8 @@ import { FaAnchor } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { MdModeEdit } from "react-icons/md";
 import { MdMerge } from "react-icons/md";
+import { LuClipboardCopy } from "react-icons/lu";
+import { ImNewTab } from "react-icons/im";
 import DeleteModal from '../DeleteModal';
 import DuplicateFeedModal from '../DuplicateFeedModal';
 import MergeFeedModal from '../mergefeedModal';
@@ -35,10 +37,19 @@ const Home = () => {
   let limit = 15;
   const [currentPageNow, setCurrentPageNow] = useState(1);
 
+  // const prettifyDate = (dateString) => {
+  //   const date = new Date(dateString);
+  //   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+  // };
+
   const prettifyDate = (dateString) => {
     const date = new Date(dateString);
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-  };
+    const months = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+    return `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()}`;
+};
 
   // async function fetchFeeds(currentPage) {
   //   try {
@@ -188,7 +199,14 @@ const Home = () => {
     setIsMergeFeedModalOpen(true);
   };
 
-  
+  const copyToClipboard = async (text) => {
+    try {
+        await navigator.clipboard.writeText(text);
+        // alert('Link copied to clipboard!');
+    } catch (err) {
+        console.error('Failed to copy text: ', err);
+    }
+};
 
 
 const [selectedIds, setSelectedIds] = useState([]);
@@ -302,6 +320,9 @@ const toggleCheckbox = (feedId) => {
                 <th scope="col" className="px-6 py-3 text-center">
                 Action
                 </th>
+                <th scope="col" className="px-6 py-3 text-center">
+                Link
+                </th>
             </tr>
         </thead>
           <tbody>
@@ -324,8 +345,16 @@ const toggleCheckbox = (feedId) => {
                       <div className="flex justify-center items-center space-x-2">
                         <Link to={`/editFeed/${feed.feed_id}`}><MdModeEdit /></Link>
                         <RiDeleteBin6Fill onClick={() => handleDeleteClick(feed.feed_id)} />
-                        <FaCopy onClick={() => handleDuplicateFeedClick(feed.feed_id)} />
-                        <a href={feed.feed_link} target='__blank'><FaAnchor /></a> 
+                        <FaCopy onClick={() => handleDuplicateFeedClick(feed.feed_id)} /> 
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <div className="flex justify-center items-center space-x-2">
+                      <LuClipboardCopy
+                    onClick={() => copyToClipboard(feed.feed_link)}
+                    className="cursor-pointer hover:text-blue-500"
+                      />
+                        <a href={feed.feed_link} target='__blank'><ImNewTab /></a> 
                       </div>
                     </td>
                 </tr>
