@@ -48,7 +48,7 @@ const Home = () => {
         "Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ];
-    return `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()}`;
+    return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 };
 
   // async function fetchFeeds(currentPage) {
@@ -305,9 +305,15 @@ const toggleCheckbox = (feedId) => {
                 <th scope="col" className="px-6 py-3 text-center">
                     Feed ID
                 </th>
+                <th scope="col" className="px-6 py-3 text-center">
+                Link
+                </th>
                 {/* <th scope="col" className="px-6 py-3 text-center">
                     Feed Link
                 </th> */}
+                <th scope="col" className="px-6 py-3 text-center">
+                Type
+                </th>
                 <th scope="col" className="px-6 py-3 text-center">
                 Created By
                 </th>
@@ -320,9 +326,8 @@ const toggleCheckbox = (feedId) => {
                 <th scope="col" className="px-6 py-3 text-center">
                 Action
                 </th>
-                <th scope="col" className="px-6 py-3 text-center">
-                Link
-                </th>
+                
+                
             </tr>
         </thead>
           <tbody>
@@ -330,13 +335,37 @@ const toggleCheckbox = (feedId) => {
             {feeds.map(feed => (
                 <tr key={feed.feed_id} className="bg-white border-b hover:bg-gray-50 text-m">
                   <td className="px-6 py-4 text-center">
-                  <input
-                  type="checkbox"
-                  checked={selectedIds.includes(feed.feed_id)}
-                  onChange={() => toggleCheckbox(feed.feed_id)}
-                />
+                    {
+                      feed.feature === "HTML Feed" ? (
+                        <input
+                          type="checkbox"
+                          checked={selectedIds.includes(feed.feed_id)}
+                          onChange={() => toggleCheckbox(feed.feed_id)}
+                        />
+                      ) : (
+                        <span className="text-gray-400">N/A</span>
+                      )
+                    }
+                  
                   </td>
-                    <td className="px-6 py-4 text-center"><a href={feed.feed_link} target='__blank'>{feed.feed_id}</a></td>
+                    <td className="px-6 py-4 text-center">
+                      <div className="flex justify-center items-center space-x-2">
+                        <span>{feed.feed_id}</span>  <LuClipboardCopy
+                      onClick={() => copyToClipboard(feed.feed_id)}
+                      className="cursor-pointer hover:text-blue-500"
+                        />
+                      </div>
+                    </td>
+                      <td className="px-6 py-4 text-center">
+                      <div className="flex justify-center items-center space-x-2">
+                      <LuClipboardCopy
+                    onClick={() => copyToClipboard(feed.feed_link)}
+                    className="cursor-pointer hover:text-blue-500"
+                      />
+                        <a href={feed.feed_link} target='__blank'><ImNewTab /></a> 
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-center">{feed.feature}</td>
                     {/* <td className="px-6 py-4 text-center"><div className='flex justify-center'><a href={feed.feed_link} target='__blank'>{feed.feed_link}</a></div></td> */}
                     <td className="px-6 py-4 text-center">{feed.created_by}</td>
                     <td className="px-6 py-4 text-center">{prettifyDate(feed.updated_at)}</td>
@@ -346,15 +375,6 @@ const toggleCheckbox = (feedId) => {
                         <Link to={`/editFeed/${feed.feed_id}`}><MdModeEdit /></Link>
                         <RiDeleteBin6Fill onClick={() => handleDeleteClick(feed.feed_id)} />
                         <FaCopy onClick={() => handleDuplicateFeedClick(feed.feed_id)} /> 
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      <div className="flex justify-center items-center space-x-2">
-                      <LuClipboardCopy
-                    onClick={() => copyToClipboard(feed.feed_link)}
-                    className="cursor-pointer hover:text-blue-500"
-                      />
-                        <a href={feed.feed_link} target='__blank'><ImNewTab /></a> 
                       </div>
                     </td>
                 </tr>

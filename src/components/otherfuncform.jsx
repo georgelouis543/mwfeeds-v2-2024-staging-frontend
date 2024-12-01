@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import useAuth from '../hooks/useAuth';
 
 
 const Otherfuncform = (props) => {
 
+  const { auth, setAuth } = useAuth()
     const [formData, setFormData] = useState({
         feed_url: '',
         item: '',
@@ -12,17 +14,44 @@ const Otherfuncform = (props) => {
         date: '',
         item_url: '',
         source_name: '',
-        source_url: ''
+        source_url: '',
+        feature_type: '',
       });
     
       const axiosPrivate = useAxiosPrivate()
     
+      // const handleChange = (e) => {
+      //   const { name, value, type, checked } = e.target;
+      //   setFormData({
+      //     ...formData,
+      //     [name]: type === 'checkbox' ? checked : value,
+      //   });
+      // };
+
       const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData({
-          ...formData,
-          [name]: type === 'checkbox' ? checked : value,
+        const { name, value } = e.target;
+      
+        setFormData((prevData) => {
+          let updatedData = { ...prevData, [name]: value };
+      
+          if (value === "NF-RSS" || value === "NF-JSON") {
+            updatedData = {
+              ...updatedData,
+              item: 'item',
+              title: 'title',
+              description: 'description',
+              date: 'pubDate',
+              item_url: 'link',
+              source_name: 'Meltwater',
+              source_url: 'https://app.meltwater.com',
+              feature_type: value 
+            };
+          }
+      
+          return updatedData;
         });
+      
+        console.log(formData);
       };
     
       const handleSubmit = async (e) => {
@@ -36,18 +65,49 @@ const Otherfuncform = (props) => {
           if (response.status === 200) {
             // console.log('Success:', response.data);
             props.onChangeFeedform(formData, response.data)
+
           } else {
             console.error('Error:', response.statusText);
           }
         } catch (error) {
           console.error('Error:', error);
         }
-        // console.log(formData)
+        console.log(formData)
       };
 
   return (
     <form className="justify-between Items-center w-[60%] py-7 border-black" onSubmit={handleSubmit}>
+      
       <div className="relative z-0 w-full mb-5 group">
+  {/* Text above the dropdown */}
+  <p className="mb-2 text-sm font-medium text-gray-700">
+    What do you want to do today?
+  </p>
+
+  {/* Dropdown */}
+  <select
+    name="feature_type"
+    id="feature_type"
+    className="text-black bg-white border border-gray-300 rounded-lg p-2 text-sm w-[100%]"
+    required
+    value={formData.feature_type}
+    onChange={handleChange} // Use handleChange for dropdown
+  >
+    <option value="" disabled>
+      Select an option
+    </option>
+    <option value="sharepoint">Sharepoint</option>
+    <option value="set-encoding">Set Encoding</option>
+    <option value="suppress-future-dates">Suppress Future Dates</option>
+    <option value="NF-RSS">Newsfeed RSS Convert</option>
+    <option value="NF-JSON">Newsfeed JSON Convert</option>
+  </select>
+</div>
+
+      {
+        formData.feature_type && (
+          <>
+          <div className="relative z-0 w-full mb-5 group">
         <input
           type="text"
           name="feed_url"
@@ -198,6 +258,11 @@ const Otherfuncform = (props) => {
       >
         Preview
       </button>
+      </>
+        )
+      }
+      
+      
     </form>
   )
 }

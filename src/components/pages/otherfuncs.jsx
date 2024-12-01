@@ -17,23 +17,29 @@ const Otherfuncs = () => {
 
 
     const onChangeFeedformData = (form_data, feed_items) => {
+      console.log(form_data)
         setfeedformData(form_data)
+        setFormData({
+          ...form_data, 
+          owner: auth.email
+        })
         setItems(feed_items)
         console.log(feedformdata)
         console.log(items)
+        console.log(formData)
       }
 
-      const handleDropdownChange = (event) => {
-        const selectedValue = event.target.value; 
-        setDropdownValue(selectedValue); 
-        setFormData({
-          ...feedformdata,
-          feature_type: selectedValue, 
-          owner: auth.email,
-        });
-        console.log('Selected option:', selectedValue);
-        console.log('Form data:', formData);
-      };
+      // const handleDropdownChange = (event) => {
+      //   const selectedValue = event.target.value; 
+      //   setDropdownValue(selectedValue); 
+      //   setFormData({
+      //     ...feedformdata,
+      //     feature_type: selectedValue, 
+      //     owner: auth.email,
+      //   });
+      //   console.log('Selected option:', selectedValue);
+      //   console.log('Form data:', formData);
+      // };
 
       // const handleCreate = async () => {
       //   const owner = auth.email; 
@@ -92,7 +98,7 @@ const Otherfuncs = () => {
         {items.length > 0 && (
         <div className="p-3 flex items-center space-x-4">
         {/* Dropdown next to the Create Button */}
-        <select
+        {/* <select
           value={dropdownValue}
           onChange={handleDropdownChange}
           className="text-black bg-white border border-gray-300 rounded-lg p-2 text-sm"
@@ -101,13 +107,14 @@ const Otherfuncs = () => {
           <option value="sharepoint">Sharepoint</option>
           <option value="set-encoding">Set Encoding</option>
           <option value="suppress-future-dates">Suppress Future Dates</option>
-        </select>
+          <option value="NF-RSS">Newsfeed RSS Convert</option>
+          <option value="NF-JSON">Newsfeed JSON Convert</option>
+        </select> */}
 
         <button
           type="button"
           className="text-white bg-black hover:bg-gray-700 focus:outline-none focus:ring-black font-medium rounded-lg text-[11px] w-full sm:w-auto px-5 py-2.5 text-center dark:bg-black dark:hover:bg-gray-700 dark:focus:ring-black"
           onClick={handleCreate}
-          disabled={!dropdownValue}
         >
           Create
         </button>

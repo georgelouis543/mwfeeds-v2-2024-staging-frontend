@@ -119,9 +119,9 @@ function Header() {
             <div className='flex items-center'> 
               <Link to='/'>
                   <img
-                    src={navLogo}
-                    width='70'
-                    height='70'
+                    src={MWFeedsDemoLogo}
+                    width='90'
+                    height='90'
                     alt='/'
                     className='rounded-full'
                   />
