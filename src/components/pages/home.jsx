@@ -15,6 +15,10 @@ import { ImNewTab } from "react-icons/im";
 import DeleteModal from '../DeleteModal';
 import DuplicateFeedModal from '../DuplicateFeedModal';
 import MergeFeedModal from '../mergefeedModal';
+import { IoDuplicateSharp } from "react-icons/io5";
+import { FaRegCopy } from "react-icons/fa6";
+
+
 
 
 const Home = () => {
@@ -350,7 +354,7 @@ const toggleCheckbox = (feedId) => {
                   </td>
                     <td className="px-6 py-4 text-center">
                       <div className="flex justify-center items-center space-x-2">
-                        <span>{feed.feed_id}</span>  <LuClipboardCopy
+                        <span>{feed.feed_id}</span>  <FaRegCopy
                       onClick={() => copyToClipboard(feed.feed_id)}
                       className="cursor-pointer hover:text-blue-500"
                         />
@@ -358,7 +362,7 @@ const toggleCheckbox = (feedId) => {
                     </td>
                       <td className="px-6 py-4 text-center">
                       <div className="flex justify-center items-center space-x-2">
-                      <LuClipboardCopy
+                      <FaRegCopy
                     onClick={() => copyToClipboard(feed.feed_link)}
                     className="cursor-pointer hover:text-blue-500"
                       />
@@ -372,9 +376,21 @@ const toggleCheckbox = (feedId) => {
                     <td className="px-6 py-4 text-center">{prettifyDate(feed.created_at)}</td>
                     <td className="px-6 py-4 text-center">
                       <div className="flex justify-center items-center space-x-2">
-                        <Link to={`/editFeed/${feed.feed_id}`}><MdModeEdit /></Link>
+                        
+                        
+                        <Link 
+                        to={
+                          feed.feature ==='HTML Feed' ? 
+                          `/editFeed/${feed.feed_id}` : 
+                          `/more/more_operations/edit_feed/${feed.feed_id}`
+                        }>
+                          <MdModeEdit />
+                        </Link>
+                        
+                        
+                        
                         <RiDeleteBin6Fill onClick={() => handleDeleteClick(feed.feed_id)} />
-                        <FaCopy onClick={() => handleDuplicateFeedClick(feed.feed_id)} /> 
+                        <IoDuplicateSharp onClick={() => handleDuplicateFeedClick(feed.feed_id)} /> 
                       </div>
                     </td>
                 </tr>

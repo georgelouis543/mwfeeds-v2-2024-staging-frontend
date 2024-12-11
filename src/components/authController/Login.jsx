@@ -67,20 +67,22 @@ function Login() {
                 ):(
                   <>
                   <div className='flex justify-center items-center w-full h-full px-2 2xl:px-16 py-[35px]'>
-                    <div className='border-2 border-black rounded-xl bg-black shadow-lg'>
+                    <div className='border-2 border-black rounded-xl bg-white shadow-lg'>
                       <div className='flex justify-center items-center py-3'>
-                      <img src={MWFeedsDemoLogo} width={200} className='rounded-full border-black'/>
+                      <img src={MWFeedsDemoLogo} width={400} />
                       </div>
-                      <h1 className='text-white text-center p-3 font-bold text-2xl'>Meltwater Feeds</h1>
-                      <h2 className='text-xl text-center font-bold m-10 py-2 text-white border-b'>Sign in with your Meltwater account</h2>
+                      <h1 className='text-black text-center p-3 font-bold text-3xl'>Meltwater Feeds</h1>
+                      <h2 className='text-xl text-center font-bold m-10 py-2 text-black border-b-2 border-black'>Sign in with your Meltwater account</h2>
                       <div className='m-10'>
+                  
+                  <div className='border-black border-4 p-2 bg-black rounded-lg align-middle'>
                   <GoogleOAuthProvider clientId={"272404380425-f70rqaqkf4jc52d8r2h9n4vbe1qgkrg5.apps.googleusercontent.com"}>
                 <GoogleLogin
                                     onSuccess={handleLogin}
                                     onError={handleFailure} 
                                     target="_self"
                                     theme="dark" 
-                                    shape="pill"
+                                    shape="rectangular"
                                     width="350"
                                     height="200"
                                     size="large"
@@ -89,6 +91,8 @@ function Login() {
                                     />
                     
                 </GoogleOAuthProvider> 
+                  </div>
+                  
                 </div>  
                 </div> 
                 </div>

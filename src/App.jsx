@@ -21,6 +21,7 @@ import Mergedfeeds from './components/pages/mergedfeeds';
 import Otherfuncs from './components/pages/otherfuncs';
 import Otherfuncfeeds from './components/pages/otherfuncfeeds';
 import useAuth from './hooks/useAuth';
+import EditOtherfuncs from './components/pages/editotherfuncs';
 
 function App() {
 
@@ -65,6 +66,7 @@ function App() {
             <Route path='/newsfeed/view-all' element={<AllNewsFeeds />}></Route>
             <Route path='/view_merged_feeds' element={<Mergedfeeds />}></Route>
             <Route path='/more/more_operations' element={<Otherfuncs />}></Route>
+            <Route path='/more/more_operations/edit_feed/:feed_id' element={<EditOtherfuncs />}></Route>
             <Route path='/more/view-all' element={<Otherfuncfeeds />}></Route>
             {/* <Route path='/newsfeed/newsfeedconvertJson' element={<Newsfeed />}></Route> */}
         </Route>

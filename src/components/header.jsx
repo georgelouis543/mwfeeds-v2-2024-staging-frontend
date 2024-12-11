@@ -76,11 +76,11 @@ function Header() {
             <li className='ml-10 text-sm hover:border-b'>
               <Link to='/createfeed'>Create Feed</Link>
             </li>
-            <li className='ml-10 text-sm hover:border-b'>
+            {/* <li className='ml-10 text-sm hover:border-b'>
               <Link to='/newsfeed'>Newsfeed Studio</Link>
-            </li>
+            </li> */}
             <li className='ml-10 text-sm hover:border-b'>
-              <Link to='/more'>More</Link>
+              <Link to='/more/more_operations'>RSS Playground</Link>
             </li>
             <li className='ml-10 text-sm hover:border-b'>
                 <button type='button' onClick={handleLogout}>
@@ -153,14 +153,14 @@ function Header() {
                   Create Feed
                 </li>
               </Link>
-              <Link to='/newsfeed'>
+              {/* <Link to='/newsfeed'>
                 <li onClick={() => setNav(false)} className='py-4 text-sm'>
                   Newsfeed Studio
                 </li>
-              </Link>
-              <Link to='/more'>
+              </Link> */}
+              <Link to='/more/more_operations'>
                 <li onClick={() => setNav(false)} className='py-4 text-sm'>
-                  More
+                  RSS Playground
                 </li>
               </Link>
               <>
