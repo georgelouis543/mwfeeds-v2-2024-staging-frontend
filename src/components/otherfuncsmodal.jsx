@@ -10,7 +10,7 @@ const Otherfuncsmodal = ({ isOpen, onClose, formData }) => {
   
     const handleCreateFeed = async () => {
       try {
-        const response = await axiosPrivate.post('/other_operations/save_feed', formData, {
+        const response = await axiosPrivate.post('/rss_operations_handler/save_feed', formData, {
           headers: {
             'Content-Type': 'application/json',
           },

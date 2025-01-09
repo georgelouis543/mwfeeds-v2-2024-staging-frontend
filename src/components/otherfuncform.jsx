@@ -57,7 +57,7 @@ const Otherfuncform = (props) => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const response = await axiosPrivate.post('other_operations/feed_mapper', formData, {
+          const response = await axiosPrivate.post('rss_operations_handler/feed_mapper', formData, {
             headers: {
               'Content-Type': 'application/json',
             },
