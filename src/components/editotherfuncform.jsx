@@ -23,7 +23,7 @@ const EditOtherfuncform = (props) => {
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        const response = await axiosPrivate.get(`/other_operations/get_feed_params?feed_id=${props.feed_id}`); 
+        const response = await axiosPrivate.get(`/rss_operations_handler/get_feed_params?feed_id=${props.feed_id}`); 
         if (response.status === 200) {
           setFormData(response.data);
         } else {
@@ -50,7 +50,7 @@ const EditOtherfuncform = (props) => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const response = await axiosPrivate.post('other_operations/feed_mapper', formData, {
+          const response = await axiosPrivate.post('rss_operations_handler/feed_mapper', formData, {
             headers: {
               'Content-Type': 'application/json',
             },
