@@ -10,7 +10,7 @@ const EditOtherfuncsmodal = ({ isOpen, onClose, formData, feed_id }) => {
   
     const handleCreateFeed = async () => {
       try {
-        const response = await axiosPrivate.put(`/other_operations/update_saved_feed/${feed_id}`, formData, {
+        const response = await axiosPrivate.put(`/rss_operations_handler/update_saved_feed/${feed_id}`, formData, {
           headers: {
             'Content-Type': 'application/json',
           },
