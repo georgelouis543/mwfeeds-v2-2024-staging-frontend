@@ -74,7 +74,7 @@ function Header() {
               <Link to='/'>Home</Link>
             </li>
             <li className='ml-10 text-sm hover:border-b'>
-              <Link to='/createfeed'>Create Feed</Link>
+              <Link to='/createfeed1'>Create Feed</Link>
             </li>
             {/* <li className='ml-10 text-sm hover:border-b'>
               <Link to='/newsfeed'>Newsfeed Studio</Link>
@@ -148,7 +148,7 @@ function Header() {
                   Home
                 </li>
               </Link>
-              <Link to='/createfeed'>
+              <Link to='/createfeed1'>
                 <li onClick={() => setNav(false)} className='py-4 text-sm'>
                   Create Feed
                 </li>

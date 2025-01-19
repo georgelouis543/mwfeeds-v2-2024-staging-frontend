@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Home  from './components/pages/home';
 import Createfeed from './components/pages/createfeed';
+import Createfeed1 from './components/pages/createfeed1';
 import More from './components/pages/more';
 import Editfeed from './components/pages/editfeed';
 import PersistLogin from './components/authController/PersistLogin'
@@ -22,6 +23,7 @@ import Otherfuncs from './components/pages/otherfuncs';
 import Otherfuncfeeds from './components/pages/otherfuncfeeds';
 import useAuth from './hooks/useAuth';
 import EditOtherfuncs from './components/pages/editotherfuncs';
+import EditHtmlfeed1 from './components/pages/editfeed1';
 
 function App() {
 
@@ -58,8 +60,10 @@ function App() {
             <Route path="/" element={<Navigate to="/home" replace />}></Route>
             <Route path="/home" element={<Home />} exact></Route>
             <Route path='/createFeed' element={<Createfeed />}></Route>
+            <Route path='/createfeed1' element={<Createfeed1/>}></Route>
             <Route path="/more" element={<More />}></Route>
             <Route path='/editFeed/:feed_id' element={<Editfeed />}></Route>
+            <Route path='/editFeed1/:feed_id' element={<EditHtmlfeed1 />}></Route>
             <Route path='/newsfeed' element={<Newsfeed />}></Route>
             <Route path='/newsfeed/newsfeedconvert' element={<Newsfeedconvert />}></Route>
             <Route path='/newsfeed/newsfeedconvertJSON' element={<NewsfeedconvertJSON />}></Route>

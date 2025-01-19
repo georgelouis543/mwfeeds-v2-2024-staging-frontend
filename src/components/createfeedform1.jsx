@@ -1,63 +1,57 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import useAuth from '../hooks/useAuth';
 
 
-const EditOtherfuncform = (props) => {
+const CreateFeedform1 = (props) => {
 
   const { auth, setAuth } = useAuth()
     const [formData, setFormData] = useState({
-        feed_url: '',
+        url: '',
         item: '',
         title: '',
         description: '',
         date: '',
+        item_link_pre_literal: '',
         item_url: '',
+        item_link_post_literal: '',
         source_name: '',
         source_url: '',
         image_url: '',
-        feature_type: '',
       });
     
       const axiosPrivate = useAxiosPrivate()
-
-  useEffect(() => {
-    const fetchInitialData = async () => {
-      try {
-        const response = await axiosPrivate.get(`/rss_operations_handler/get_feed_params?feed_id=${props.feed_id}`); 
-        if (response.status === 200) {
-          setFormData(response.data);
-        } else {
-          console.error('Error fetching initial data:', response.statusText);
-        }
-      } catch (error) {
-        console.error('Error fetching initial data:', error);
-      }
-    };
-    // Call the function to fetch data when the component mounts
-    fetchInitialData();
-  }, []); 
     
+      // const handleChange = (e) => {
+      //   const { name, value, type, checked } = e.target;
+      //   setFormData({
+      //     ...formData,
+      //     [name]: type === 'checkbox' ? checked : value,
+      //   });
+      // };
+
       const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
+        const { name, value } = e.target;
         setFormData({
           ...formData,
-          [name]: type === 'checkbox' ? checked : value,
+          [name]: value,
         });
       };
-
+    
       
+        console.log(formData);
     
       const handleSubmit = async (e) => {
         e.preventDefault();
+        let response
         try {
-          const response = await axiosPrivate.post('rss_operations_handler/feed_mapper', formData, {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
+            response = await axiosPrivate.post('html_feed_handler/feed_mapper', formData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
           if (response.status === 200) {
-            // console.log('Success:', response.data);
+            console.log('Success:', response.data);
             props.onChangeFeedform(formData, response.data)
 
           } else {
@@ -72,21 +66,20 @@ const EditOtherfuncform = (props) => {
   return (
     <form className="justify-between Items-center w-[60%] py-7 border-black" onSubmit={handleSubmit}>
       
-      <div className="relative z-0 w-full mb-5 group">
+      {/* <div className="relative z-0 w-full mb-5 group"> */}
   {/* Text above the dropdown */}
-  <p className="mb-2 text-sm font-medium text-gray-700">
+  {/* <p className="mb-2 text-sm font-medium text-gray-700">
     What do you want to do today?
-  </p>
+  </p> */}
 
   {/* Dropdown */}
-  <select
+  {/* <select
     name="feature_type"
     id="feature_type"
     className="text-black bg-white border border-gray-300 rounded-lg p-2 text-sm w-[100%]"
     required
     value={formData.feature_type}
     onChange={handleChange} // Use handleChange for dropdown
-    disabled
   >
     <option value="" disabled>
       Select an option
@@ -96,25 +89,23 @@ const EditOtherfuncform = (props) => {
     <option value="suppress-future-dates">Suppress Future Dates</option>
     <option value="NF-RSS">Newsfeed RSS Convert</option>
     <option value="NF-JSON">Newsfeed JSON Convert</option>
-  </select>
-</div>
+  </select> */}
+{/* </div> */}
 
-      {
-        formData.feature_type && (
-          <>
-          <div className="relative z-0 w-full mb-5 group">
+      
+    <div className="relative z-0 w-full mb-5 group">
         <input
           type="text"
-          name="feed_url"
-          id="feed_url"
+          name="url"
+          id="url"
           className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
           required
-          value={formData.feed_url}
+          value={formData.url}
           onChange={handleChange}
         />
         <label
-          htmlFor="feed_url"
+          htmlFor="url"
           className="peer-focus:font-medium absolute text-[11px] text-black-500 dark:text-black-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
         >
           URL
@@ -145,7 +136,7 @@ const EditOtherfuncform = (props) => {
           id="title"
           className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          required
+          // required
           value={formData.title}
           onChange={handleChange}
         />
@@ -163,7 +154,7 @@ const EditOtherfuncform = (props) => {
           id="description"
           className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          required
+          // required
           value={formData.description}
           onChange={handleChange}
         />
@@ -181,7 +172,7 @@ const EditOtherfuncform = (props) => {
           id="date"
           className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          required
+          // required
           value={formData.date}
           onChange={handleChange}
         />
@@ -195,11 +186,29 @@ const EditOtherfuncform = (props) => {
       <div className="relative z-0 w-full mb-5 group">
         <input
           type="text"
+          name="item_link_pre_literal"
+          id="item_link_pre_literal"
+          className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" "
+          // required
+          value={formData.item_link_pre_literal}
+          onChange={handleChange}
+        />
+        <label
+          htmlFor="item_link_pre_literal"
+          className="peer-focus:font-medium absolute text-[11px] text-black-500 dark:text-black-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >
+          item URL pre literal
+        </label>
+      </div>
+      <div className="relative z-0 w-full mb-5 group">
+        <input
+          type="text"
           name="item_url"
           id="item_url"
           className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          required
+          // required
           value={formData.item_url}
           onChange={handleChange}
         />
@@ -207,7 +216,25 @@ const EditOtherfuncform = (props) => {
           htmlFor="item_url"
           className="peer-focus:font-medium absolute text-[11px] text-black-500 dark:text-black-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
         >
-          item_url
+          item URL
+        </label>
+      </div>
+      <div className="relative z-0 w-full mb-5 group">
+        <input
+          type="text"
+          name="item_link_post_literal"
+          id="item_link_post_literal"
+          className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" "
+          // required
+          value={formData.item_link_post_literal}
+          onChange={handleChange}
+        />
+        <label
+          htmlFor="item_link_post_literal"
+          className="peer-focus:font-medium absolute text-[11px] text-black-500 dark:text-black-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >
+          item URL post literal
         </label>
       </div>
       <div className="relative z-0 w-full mb-5 group">
@@ -217,7 +244,7 @@ const EditOtherfuncform = (props) => {
           id="source_name"
           className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          required
+          // required
           value={formData.source_name}
           onChange={handleChange}
         />
@@ -235,7 +262,7 @@ const EditOtherfuncform = (props) => {
           id="source_url"
           className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          required
+          // required
           value={formData.source_url}
           onChange={handleChange}
         />
@@ -246,25 +273,6 @@ const EditOtherfuncform = (props) => {
           Source URL
         </label>
       </div>
-
-      <div className="relative z-0 w-full mb-5 group">
-        <input
-          type="text"
-          name="image_url"
-          id="image_url"
-          className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          placeholder=" "
-          // required
-          value={formData.image_url}
-          onChange={handleChange}
-        />
-        <label
-          htmlFor="image_url"
-          className="peer-focus:font-medium absolute text-[11px] text-black-500 dark:text-black-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-        >
-          Image URL
-        </label>
-      </div>
       
       <button
         type="submit"
@@ -272,13 +280,9 @@ const EditOtherfuncform = (props) => {
       >
         Preview
       </button>
-      </>
-        )
-      }
-      
-      
+
     </form>
   )
 }
 
-export default EditOtherfuncform
+export default CreateFeedform1

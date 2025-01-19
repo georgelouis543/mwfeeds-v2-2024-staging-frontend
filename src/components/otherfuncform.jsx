@@ -15,6 +15,7 @@ const Otherfuncform = (props) => {
         item_url: '',
         source_name: '',
         source_url: '',
+        image_url: '',
         feature_type: '',
       });
     
@@ -32,23 +33,37 @@ const Otherfuncform = (props) => {
         const { name, value } = e.target;
       
         setFormData((prevData) => {
-          let updatedData = { ...prevData, [name]: value };
-      
-          if (value === "NF-RSS" || value === "NF-JSON") {
-            updatedData = {
-              ...updatedData,
-              item: 'item',
-              title: 'title',
-              description: 'description',
-              date: 'pubDate',
-              item_url: 'link',
-              source_name: 'Meltwater',
-              source_url: 'https://app.meltwater.com',
-              feature_type: value 
-            };
+          if (name === "feature_type" && value !== "NF-RSS" && value !== "NF-JSON") {
+              // Reset all form fields except the feature_type
+              return {
+                  ...prevData,
+                  feature_type: value,
+                  feed_url: '',
+                  item: '',
+                  title: '',
+                  description: '',
+                  date: '',
+                  item_url: '',
+                  source_name: '',
+                  source_url: '',
+              };
+          } else if (value === "NF-RSS" || value === "NF-JSON") {
+              // Pre-fill fields for NF-RSS and NF-JSON
+              return {
+                  ...prevData,
+                  feature_type: value,
+                  item: 'item',
+                  title: 'title',
+                  description: 'description',
+                  date: 'pubDate',
+                  item_url: 'link',
+                  source_name: 'Meltwater',
+                  source_url: 'https://app.meltwater.com',
+              };
+          } else {
+              // Update the specific field for other inputs
+              return { ...prevData, [name]: value };
           }
-      
-          return updatedData;
         });
       
         console.log(formData);
@@ -57,11 +72,23 @@ const Otherfuncform = (props) => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const response = await axiosPrivate.post('rss_operations_handler/feed_mapper', formData, {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
+          let response;
+  
+          if (formData.feature_type === "NF-RSS" || formData.feature_type === "NF-JSON") {
+              // Call the API specific to Newsfeed RSS or Newsfeed JSON
+              response = await axiosPrivate.post('other_operations/feed_mapper', formData, {
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+              });
+          } else {
+              // Call the default API
+              response = await axiosPrivate.post('rss_operations_handler/feed_mapper', formData, {
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+              });
+          }
           if (response.status === 200) {
             // console.log('Success:', response.data);
             props.onChangeFeedform(formData, response.data)
@@ -150,7 +177,7 @@ const Otherfuncform = (props) => {
           id="title"
           className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          required
+          // required
           value={formData.title}
           onChange={handleChange}
         />
@@ -168,7 +195,7 @@ const Otherfuncform = (props) => {
           id="description"
           className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          required
+          // required
           value={formData.description}
           onChange={handleChange}
         />
@@ -186,7 +213,7 @@ const Otherfuncform = (props) => {
           id="date"
           className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          required
+          // required
           value={formData.date}
           onChange={handleChange}
         />
@@ -204,7 +231,7 @@ const Otherfuncform = (props) => {
           id="item_url"
           className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          required
+          // required
           value={formData.item_url}
           onChange={handleChange}
         />
@@ -222,7 +249,7 @@ const Otherfuncform = (props) => {
           id="source_name"
           className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          required
+          // required
           value={formData.source_name}
           onChange={handleChange}
         />
@@ -240,7 +267,7 @@ const Otherfuncform = (props) => {
           id="source_url"
           className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          required
+          // required
           value={formData.source_url}
           onChange={handleChange}
         />
@@ -249,6 +276,25 @@ const Otherfuncform = (props) => {
           className="peer-focus:font-medium absolute text-[11px] text-black-500 dark:text-black-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
         >
           Source URL
+        </label>
+      </div>
+
+      <div className="relative z-0 w-full mb-5 group">
+        <input
+          type="text"
+          name="image_url"
+          id="image_url"
+          className="block py-2.5 px-0 w-full text-[11px] text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" "
+          // required
+          value={formData.image_url}
+          onChange={handleChange}
+        />
+        <label
+          htmlFor="image_url"
+          className="peer-focus:font-medium absolute text-[11px] text-black-500 dark:text-black-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >
+          Image URL
         </label>
       </div>
       

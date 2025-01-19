@@ -13,6 +13,7 @@ const Articlecontainer = (props) => {
           description={article.description}
           source_url={article.source_url}
           source_name={article.source_name}
+          image_url={article.image_url}
         />
       ))}
     </div>

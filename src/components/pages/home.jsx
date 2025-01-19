@@ -381,7 +381,7 @@ const toggleCheckbox = (feedId) => {
                         <Link 
                         to={
                           feed.feature ==='HTML Feed' ? 
-                          `/editFeed/${feed.feed_id}` : 
+                          `/editFeed1/${feed.feed_id}` : 
                           `/more/more_operations/edit_feed/${feed.feed_id}`
                         }>
                           <MdModeEdit />
