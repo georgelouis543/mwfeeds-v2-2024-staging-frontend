@@ -18,6 +18,7 @@ const CreateFeedform1 = (props) => {
         source_name: '',
         source_url: '',
         image_url: '',
+        is_javascript_enabled: false,
       });
     
       const axiosPrivate = useAxiosPrivate()
@@ -31,10 +32,10 @@ const CreateFeedform1 = (props) => {
       // };
 
       const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, type, checked } = e.target;
         setFormData({
           ...formData,
-          [name]: value,
+          [name]: type === 'checkbox' ? checked : value, 
         });
       };
     
@@ -91,6 +92,24 @@ const CreateFeedform1 = (props) => {
     <option value="NF-JSON">Newsfeed JSON Convert</option>
   </select> */}
 {/* </div> */}
+
+
+<div className="relative z-0 w-full mb-5 group flex items-center">
+        <input
+          type="checkbox"
+          name="is_javascript_enabled"
+          id="is_javascript_enabled"
+          className="mr-2"
+          checked={formData.is_javascript_enabled}
+          onChange={handleChange}
+        />
+        <label
+          htmlFor="is_javascript_enabled"
+          className="text-[11px] text-black-500 dark:text-black-400"
+        >
+          Is JavaScript Enabled
+        </label>
+      </div>
 
       
     <div className="relative z-0 w-full mb-5 group">
