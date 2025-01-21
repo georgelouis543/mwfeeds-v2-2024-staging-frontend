@@ -6,6 +6,7 @@ import useAuth from '../../hooks/useAuth'
 import EditOtherfuncform from '../editotherfuncform'
 import EditOtherfuncsmodal from '../editotherfeedsmodal'
 import EditHtmlFeedform1 from '../edithtmlfeedform1'
+import EditHtmlFeedModal1 from '../edithtmlfeedmodal1'
 
 const EditHtmlfeed1 = () => {
     const { feed_id } = useParams()
@@ -79,7 +80,7 @@ const EditHtmlfeed1 = () => {
       </div>
        )} 
         </div>
-        <EditOtherfuncsmodal
+        <EditHtmlFeedModal1
         isOpen={isModalOpen}
         feed_id={feed_id}
         onClose={handleCloseModal}
