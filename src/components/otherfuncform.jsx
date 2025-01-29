@@ -126,7 +126,7 @@ const Otherfuncform = (props) => {
     <option value="" disabled>
       Select an option
     </option>
-    <option value="sharepoint">Sharepoint</option>
+    <option value="sharepoint">Sharepoint/Meltwater</option>
     <option value="set-encoding">Set Encoding</option>
     <option value="suppress-future-dates">Suppress Future Dates</option>
     <option value="NF-RSS">Newsfeed RSS Convert</option>

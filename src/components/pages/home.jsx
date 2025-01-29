@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import useAuth from '../../hooks/useAuth';
 import SearchBar from '../searchBar';
@@ -17,6 +17,7 @@ import DuplicateFeedModal from '../DuplicateFeedModal';
 import MergeFeedModal from '../mergefeedModal';
 import { IoDuplicateSharp } from "react-icons/io5";
 import { FaRegCopy } from "react-icons/fa6";
+import ConfirmationModal from '../ediConfirmModal';
 
 
 
@@ -37,6 +38,9 @@ const Home = () => {
   const [isDuplicateFeedModalOpen, setIsDuplicateFeedModalOpen] = useState(false);
   const [selectedFeedId, setSelectedFeedId] = useState(null);
   const [isMergeFeedModalOpen, setIsMergeFeedModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   let limit = 15;
   const [currentPageNow, setCurrentPageNow] = useState(1);
@@ -260,6 +264,27 @@ const toggleCheckbox = (feedId) => {
   };
 
 
+  // Handle "Edit" click to show modal
+  const handleEditClick = (feedId) => {
+    setSelectedFeedId(feedId);
+    setIsEditModalOpen(true);
+  };
+
+  // Confirm edit action and navigate to the edit page
+  const handleConfirmEdit = () => {
+    setIsEditModalOpen(false);
+    if (selectedFeedId) {
+      navigate(`/editFeed1/${selectedFeedId}`);
+    }
+  };
+
+  // Cancel edit action
+  const handleCancelEdit = () => {
+    setIsEditModalOpen(false);
+    setSelectedFeedId(null);
+  };
+
+
   return (
     <>
     {/* <div>
@@ -378,14 +403,18 @@ const toggleCheckbox = (feedId) => {
                       <div className="flex justify-center items-center space-x-2">
                         
                         
-                        <Link 
+                        {/* <Link 
                         to={
                           feed.feature ==='HTML Feed' ? 
                           `/editFeed1/${feed.feed_id}` : 
                           `/more/more_operations/edit_feed/${feed.feed_id}`
                         }>
                           <MdModeEdit />
-                        </Link>
+                        </Link> */}
+
+                        <button onClick={() => handleEditClick(feed.feed_id)}>
+                          <MdModeEdit />
+                        </button>
                         
                         
                         
@@ -432,10 +461,19 @@ const toggleCheckbox = (feedId) => {
       />
 
       <MergeFeedModal
-      isOpen={isMergeFeedModalOpen}
-      onCloseMergeFeedModal={handleCloseMergeFeedModal}
-      selectedIds={selectedIds} // Pass selected feed IDs to the modal
+        isOpen={isMergeFeedModalOpen}
+        onCloseMergeFeedModal={handleCloseMergeFeedModal}
+        selectedIds={selectedIds} // Pass selected feed IDs to the modal
       />
+
+      <ConfirmationModal
+        isOpen={isEditModalOpen}
+        onConfirm={handleConfirmEdit}
+        onCancel={handleCancelEdit}
+        message="Are you sure you want to edit this feed?"
+      />
+
+
           
     </>
         )

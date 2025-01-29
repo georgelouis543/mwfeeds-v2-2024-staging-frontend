@@ -83,7 +83,7 @@ const Otherfuncs = () => {
   return (
     <div className='flex justify-between items-top w-full h-full px-2 2xl:px-16 py-7'>
       <div className='w-[35%] flex flex-col'>
-        <h1 className='font-bold text-[15px]'>Let's get started quickly</h1>
+        <h1 className='font-bold text-[15px]'>Convert your RSS Feed to one of the below</h1>
         <div>
         <Otherfuncform onChangeFeedform = {onChangeFeedformData}/>
         </div>
